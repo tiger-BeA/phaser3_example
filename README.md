@@ -1,6 +1,21 @@
 # Phaser 3
+* [Phaser 3安装](#phaser-3%E5%AE%89%E8%A3%85)
+* [Part 1 \- 介绍](#part-1---%E4%BB%8B%E7%BB%8D)
+	* [要求](#%E8%A6%81%E6%B1%82)
+* [Part 2 \- 加载资源](#part-2---%E5%8A%A0%E8%BD%BD%E8%B5%84%E6%BA%90)
+	* [显示一张图片](#%E6%98%BE%E7%A4%BA%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87)
+* [Part 3 \- 建造世界](#part-3---%E5%BB%BA%E9%80%A0%E4%B8%96%E7%95%8C)
+* [Part 4 \- 平台的解释](#part-4---%E5%B9%B3%E5%8F%B0%E7%9A%84%E8%A7%A3%E9%87%                       8A)
+* [Part 5 \- 准备player](#part-5---%E5%87%86%E5%A4%87player)
+	* [物理精灵](#%E7%89%A9%E7%90%86%E7%B2%BE%E7%81%B5)
+	* [动画](#%E5%8A%A8%E7%94%BB)
+* [Part 6 \- 物体速度：一个物理世界](#part-6---%E7%89%A9%E4%BD%93%E9%80%9F%E5%                       BA%A6%E4%B8%80%E4%B8%AA%E7%89%A9%E7%90%86%E4%B8%96%E7%95%8C)
+* [Part 7 \- 用键盘操纵player](#part-7---%E7%94%A8%E9%94%AE%E7%9B%98%E6%93%8D%                       E7%BA%B5player)
+* [Part 8 \- 星尘](#part8---%E6%98%9F%E5%B0%98)
+* [Part 9 \- 分数的实现](#part-9---%E5%88%86%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%                       B0)
+* [结论](#%E7%BB%93%E8%AE%BA)
 
-[TOC]
+网上没翻到对应的中文版，故而我学习的时候随手翻译了一下[Phaser3的官网教程](https://phaser.io/tutorials/making-your-first-phaser-3-game/index)，没有逐句翻译，意思到位就行。
 
 ## Phaser 3安装
 
@@ -33,7 +48,14 @@ Phaser是一个h5游戏框架，旨在帮助开发者做出有力的、跨浏览
 
 ### 要求
 
-[点击源码下载](https://phaser.io/tutorials/making-your-first-phaser-3-game/phaser3-tutorial-src.zip)
+[点击下载官方源码](https://phaser.io/tutorials/making-your-first-phaser-3-game/phaser3-tutorial-src.zip)
+[点击下载我的webpack版本源码](https://github.com/tiger-BeA/phaser3_example)
+
+> 下载我的git上的源码，在文件目录下运行以下源码，即可预览效果
+> ```shell
+> $ cnpm i
+> $ cnpm run dev
+> ```
 
 在开始教程之前确保你已经了解过了[开始指南](https://phaser.io/tutorials/getting-started)
 
@@ -315,7 +337,7 @@ if (cursors.up.isDown && player.body.touching.down) {
 
 上面的代码很好理解，不多阐述，当然Phrase也允许你做更多复杂的操作，例如动量、加速度等等，但是上述代码已经给了我们所需的效果。你可以试着改改上面的数据，看看动作效果。
 
-## Part8 - 星尘
+## Part 8 - 星尘
 
 是时候该给我们的游戏添加一些小目标了，让我们在`scene`中添加一些星星，让`player`去收集它们。为了达成这个目标，我们创建一个新的`group`，并填充它。
 
