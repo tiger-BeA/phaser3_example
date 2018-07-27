@@ -12,6 +12,7 @@
 * [Part 7 \- 用键盘操纵player](#part-7---%E7%94%A8%E9%94%AE%E7%9B%98%E6%93%8D%E7%BA%B5player)
 * [Part 8 \- 星尘](#part8---%E6%98%9F%E5%B0%98)
 * [Part 9 \- 分数的实现](#part-9--%E5%88%86%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0)
+* [Part 10 \- 弹跳炸弹](#part-10--%E5%BC%B9%E8%B7%B3%E7%82%B8%E5%BC%B9)
 * [结论](#%E7%BB%93%E8%AE%BA)
 
 网上没翻到对应的中文版，故而我学习的时候随手翻译了一下[Phaser3的官网教程](https://phaser.io/tutorials/making-your-first-phaser-3-game/index)，没有逐句翻译，意思到位就行。

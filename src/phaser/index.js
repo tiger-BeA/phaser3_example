@@ -1,15 +1,6 @@
 import fullScreen from './lib/fullScreen';
-import STAR from './img/star.png'
-import GROUND from './img/platform.png'
-import DIAMOND from './img/diamond.png'
-import SKY from './img/sky.png'
-import DUDE from './img/dude.png'
-import BG_MUSIC from './media/Aimer.mp3';
-import BOMB from './img/bomb.png'
-
 import './lib/index.scss'
-
-const Log = console.log;
+process.env.NODE_ENV !== 'production' && require('./index.html');
 
 let defaultConfig = {
     type: Phaser.AUTO,
@@ -43,20 +34,26 @@ let score = 0;
 let scoreText;
 let bombs;
 let gameOver;
+let bgMusic;
 
 function preload() {
-    this.load.image('star', STAR);
-    this.load.image('ground', GROUND);
-    this.load.image('sky', SKY);
-    this.load.spritesheet('dude', DUDE, {
+    this.load.image('star', require('./img/star.png'));
+    this.load.image('ground', require('./img/platform.png'));
+    this.load.image('sky', require('./img/sky.png'));
+    this.load.spritesheet('dude', require('./img/dude.png'), {
         frameWidth: 32,
         frameHeight: 48,
     });
-    this.load.image('bomb', BOMB);
-    this.load.audio('bgMusic', BG_MUSIC);
+    this.load.image('bomb', require('./img/bomb.png'));
+    this.load.audio('bgMusic', require('./media/Aimer.mp3'));
 }
 
 function create() {
+    bgMusic = this.sound.add('bgMusic', {
+        loop: true,
+        delay: 2000
+    });
+    this.sound.play('bgMusic');
     this.add.image(400, 300, 'sky');
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();

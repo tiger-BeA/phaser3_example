@@ -3,6 +3,8 @@ const webpackMerge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = function (_param) {
     return webpackMerge(new baseWebpackConfig(_param), {
@@ -10,32 +12,26 @@ module.exports = function (_param) {
         devtool: 'source-map',
         module: {
             rules: [{
-                    test: /\.(js|jsx|mjs)$/,
-                    loader: 'babel-loader',
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.(png|jpe?g|gif|svg)$/,
-                    use: [{
-                        loader: 'file-loader',
-                        // options: {
-                        //     limit: 6144,
-                        //     name: '[name].[ext]'
-                        // }
-                    }],
-                },
-                {
-                    test: /\.(css|scss)$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        'css-loader',
-                        'postcss-loader',
-                        'sass-loader',
-                    ],
-                }
-            ],
+                test: /\.(css|scss)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ],
+            }, {
+                test: /\.(png|jpe?g|gif|svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        limit: 6144,
+                    }
+                }]
+            }, ],
         },
         plugins: [
+            new CleanWebpackPlugin('../dist'),
             new UglifyJSPlugin({
                 sourceMap: true
             }),
@@ -45,6 +41,7 @@ module.exports = function (_param) {
             new MiniCssExtractPlugin({
                 filename: "[name].css",
             }),
+            new HtmlWebpackInlineSourcePlugin(),
             new webpack.optimize.ModuleConcatenationPlugin(),
         ]
     })

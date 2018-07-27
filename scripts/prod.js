@@ -1,7 +1,6 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const ora = require('ora')
 const chalk = require('chalk')
-const rm = require('rimraf')
 const path = require('path')
 const webpack = require('webpack')
 const argv = require('yargs').argv
@@ -19,7 +18,6 @@ const runPath = page ? [].concat(page) : rGetFolder(path.resolve(__dirname, '../
 runPath.forEach((_folder) => {
     const webpackConfig = new webpackProd(_folder);
     const spinner = ora(`${_folder} building for production...`);
-    const dist = path.resolve(__dirname, '../dist', _folder);
     const uselessFiles = [
         path.resolve(__dirname, `../dist/${_folder}/*.js`),
         path.resolve(__dirname, `../dist/${_folder}/*.css`),
@@ -27,17 +25,14 @@ runPath.forEach((_folder) => {
 
     spinner.start();
 
-    rm(dist, err => {
+    webpack(webpackConfig, (err, stats) => {
+        spinner.stop();
         if (err) throw err;
-        webpack(webpackProd, (err, stats) => {
-            spinner.stop();
-            if (err) throw err;
-            uselessFiles.map((file) => {
-                rm(file, err => {
-                    if (err) throw err;
-                });
+        uselessFiles.map((file) => {
+            fs.remove(file, err => {
+                if (err) throw err;
             });
-            console.log(chalk.cyan(`${_folder} pkg success!\n`));
-        })
-    })
+        });
+        console.log(chalk.cyan(`${_folder} pkg success!\n`));
+    });
 })

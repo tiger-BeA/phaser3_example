@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 const webpack = require('webpack')
 const argv = require('yargs').argv
@@ -57,14 +57,6 @@ portfinder.getPortPromise().then((port) => {
         app.use(devMiddleware)
         app.use(hotMiddleware)
         app.use('^/mock', httpProxy)
-
-        // // comment the following to disable reload when saved with no changes
-        // compiler.plugin('compilation', (compilation) => {
-        //     compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
-        //         hotMiddleware.publish({ action: 'reload' })
-        //         cb()
-        //     })
-        // })
 
         portfinder.basePort = 9090
         portfinder.getPortPromise().then((port) => {

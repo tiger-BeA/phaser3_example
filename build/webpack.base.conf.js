@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 module.exports = function (_param) {
     let _entry = {}
     _entry[_param] = path.resolve(__dirname, `../src/${_param}/index.js`)
@@ -18,16 +18,13 @@ module.exports = function (_param) {
         },
         module: {
             rules: [{
-                test: /pixi.js/,
-                use: [
-                    "script-loader"
-                ]
-            }, {
                 test: /\.(js|jsx|mjs)$/,
                 exclude: /node_modules/,
                 use: [
                     'babel-loader',
-                ]
+                ],
+                // 强制顺序加载
+                enforce: 'post'
             }, {
                 test: /\.html$/,
                 use: [{
@@ -42,23 +39,12 @@ module.exports = function (_param) {
                 options: {
                     limit: 5000
                 }
-            }, {
-                test: /\.(png|jpe?g|gif|svg)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        // limit: 16144,
-                    }
-                }]
             }, ]
         },
         plugins: [
-            new CleanWebpackPlugin(['../dist']),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, `../src/${_param}/index.html`),
-                title: `./${_param}/index.html`,
-                // inlineSource: '.(js|css)$'
+                inlineSource: '.(js|css)$'
             }),
             new webpack.ProvidePlugin({
                 Phaser: 'phaser',
