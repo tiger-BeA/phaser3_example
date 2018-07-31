@@ -154,7 +154,15 @@ function collectStar(player, star) {
 
 function hitBomb(player, bomb) {
     this.physics.pause();
+    // webgl的着色方法1
     player.setTint(0xFF0000);
+    /** webgl的着色方法2，加mask
+     * let graphics = this.add.graphics();
+     * graphics.fillStyle(0xFF0000);
+     * graphics.fillRect(0, 0, 800, 600);
+     * graphics.mask = new Phaser.Display.Mask(scene, player);
+     * graphics.alpha = 0.6;
+    */
     player.anims.play('turn');
     gameOver = true;
 }

@@ -22,7 +22,6 @@
 ```shell
 $ cnpm i --save phaser
 ```
-
 webpack全局配置
 
 ```js
